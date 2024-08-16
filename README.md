@@ -26,7 +26,7 @@ Algocards is an advanced flashcard application designed to help users study Data
    ```bash
    npm install
 
-5. **Run development server
+5. **Run development server**
    ```bash
    npm run dev
 
