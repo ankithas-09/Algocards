@@ -325,6 +325,69 @@
   text-decoration: underline;
 }
 
+/* Subscription section */
+.subscriptionSection {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem; /* Space between boxes */
+  padding: 2rem;
+}
+
+/* Subscription boxes */
+.subscriptionBox {
+  background-color: #333;
+  border: 1px solid #ddd;
+  margin-top: 100px;
+  border-radius: 8px;
+  padding: 1.5rem;
+  width: 300px; /* Adjust width as needed */
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Pushes the button to the bottom */
+}
+
+.subscriptionBox h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.featureList {
+  list-style-type: none;
+  padding: 0;
+  margin: 1rem 0;
+  font-size: 1rem;
+  text-align: left;
+}
+
+.featureList li {
+  margin-bottom: 0.5rem;
+}
+
+.buyButton {
+  background-color: #34b867;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 1rem; /* Space between content and button */
+  transition: background-color 0.3s ease;
+}
+
+.buyButton:hover {
+  background-color: #22673c;
+}
+
+.buyButton:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+
 /* Assessment page */
 
 .loadingSection {

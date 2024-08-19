@@ -54,6 +54,14 @@ export default function Home() {
     }
   };
 
+  const handleSubscription = async () => {
+    try {
+      router.push('/payment');
+    } catch (error) {
+      console.error('Error opening payments page:', error);
+    }
+  }
+
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -92,6 +100,7 @@ export default function Home() {
           {user ? (
             <>
               <span className={styles.userName}>{user.displayName || user.email}</span>
+              <button className={styles.authButton} onClick={handleSubscription}>Subscribe</button>
               <button className={styles.authButton} onClick={handleLogout}>Logout</button>
             </>
           ) : (
