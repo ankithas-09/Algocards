@@ -19,6 +19,7 @@ Algocards is an advanced flashcard application designed to help users study Data
 2. **Update .env.local**
    ```bash
    OPENAI_API_KEY=${YOUR_API_KEY}
+   STRIPE_SECRET_KEY=${YOUR_KEY}
 
 3. **Create/Update firebase.js**
    
