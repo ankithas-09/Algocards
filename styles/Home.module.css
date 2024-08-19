@@ -325,47 +325,42 @@
   text-decoration: underline;
 }
 
-/* Subscription section */
-.subscriptionSection {
+/* Container for subscription boxes */
+.subscriptionContainer {
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* Allows boxes to wrap onto the next line if necessary */
   gap: 1rem; /* Space between boxes */
-  padding: 2rem;
+  justify-content: center; /* Center boxes horizontally */
+  overflow-y: auto;
+  padding: 1rem; /* Padding around the container */
+  max-height: calc(100vh - 150px);
 }
 
 /* Subscription boxes */
 .subscriptionBox {
   background-color: #333;
   border: 1px solid #ddd;
-  margin-top: 100px;
+  margin-top: 150px;
   border-radius: 8px;
   padding: 1.5rem;
-  width: 300px; /* Adjust width as needed */
+  width: 300px; /* Fixed width for larger screens */
+  max-width: 100%; /* Prevents the box from exceeding its container */
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   justify-content: space-between; /* Pushes the button to the bottom */
+  box-sizing: border-box; /* Ensures padding and border are included in the box width */
 }
 
-.subscriptionBox h2 {
-  margin: 0;
-  font-size: 1.5rem;
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .subscriptionBox {
+    width: 100%; /* Full width for smaller screens */
+  }
 }
 
-.featureList {
-  list-style-type: none;
-  padding: 0;
-  margin: 1rem 0;
-  font-size: 1rem;
-  text-align: left;
-}
-
-.featureList li {
-  margin-bottom: 0.5rem;
-}
-
+/* Subscription buttons */
 .buyButton {
   background-color: #34b867;
   color: #fff;
@@ -383,7 +378,6 @@
 }
 
 .buyButton:disabled {
-  background-color: #ddd;
   cursor: not-allowed;
 }
 

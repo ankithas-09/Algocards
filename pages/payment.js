@@ -1,21 +1,21 @@
 import { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
-import { useRouter } from 'next/router'; // Import useRouter
-import styles from '../styles/Home.module.css'; // Ensure the correct path to your CSS module
+import { useRouter } from 'next/router';
+import styles from '../styles/Home.module.css';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 export default function Home() {
-  const [loading, setLoading] = useState(false);
-  const router = useRouter(); 
+  const [loadingPlan, setLoadingPlan] = useState(null); // State to track which button is loading
+  const router = useRouter();
 
   const handleSubscribe = async (plan) => {
     if (plan === 'free') {
-      router.push('/'); 
+      router.push('/');
       return;
     }
 
-    setLoading(true);
+    setLoadingPlan(plan); // Set the loading plan
     const stripe = await stripePromise;
 
     try {
@@ -41,7 +41,7 @@ export default function Home() {
       console.error('Subscription failed:', error);
     }
 
-    setLoading(false);
+    setLoadingPlan(null); // Reset the loading plan
   };
 
   return (
@@ -53,7 +53,7 @@ export default function Home() {
       </header>
 
       <main className={styles.mainContent}>
-        <section className={styles.subscriptionSection}>
+        <section className={styles.subscriptionContainer}>
           <div className={styles.subscriptionBox}>
             <h2>Free</h2>
             <ul className={styles.featureList}>
@@ -64,9 +64,9 @@ export default function Home() {
             <button
               className={styles.buyButton}
               onClick={() => handleSubscribe('free')}
-              disabled={loading}
+              disabled={loadingPlan !== null}
             >
-              {loading ? 'Processing...' : 'Free'}
+              {loadingPlan === 'free' ? 'Processing...' : 'Free'}
             </button>
           </div>
           <div className={styles.subscriptionBox}>
@@ -79,9 +79,9 @@ export default function Home() {
             <button
               className={styles.buyButton}
               onClick={() => handleSubscribe('basic')}
-              disabled={loading}
+              disabled={loadingPlan !== null}
             >
-              {loading ? 'Processing...' : 'Buy Basic'}
+              {loadingPlan === 'basic' ? 'Processing...' : 'Buy Basic'}
             </button>
           </div>
           <div className={styles.subscriptionBox}>
@@ -94,9 +94,9 @@ export default function Home() {
             <button
               className={styles.buyButton}
               onClick={() => handleSubscribe('basic_algorithms')}
-              disabled={loading}
+              disabled={loadingPlan !== null}
             >
-              {loading ? 'Processing...' : 'Buy Basic + Algorithms'}
+              {loadingPlan === 'basic_algorithms' ? 'Processing...' : 'Buy Basic + Algorithms'}
             </button>
           </div>
           <div className={styles.subscriptionBox}>
@@ -109,9 +109,9 @@ export default function Home() {
             <button
               className={styles.buyButton}
               onClick={() => handleSubscribe('pro')}
-              disabled={loading}
+              disabled={loadingPlan !== null}
             >
-              {loading ? 'Processing...' : 'Buy Pro'}
+              {loadingPlan === 'pro' ? 'Processing...' : 'Buy Pro'}
             </button>
           </div>
         </section>
