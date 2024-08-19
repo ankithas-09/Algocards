@@ -32,4 +32,4 @@ Algocards is an advanced flashcard application designed to help users study Data
    npm run dev
 
 
-## Access on your localhost:3000
+## Access on https://algocards-one.vercel.app/
