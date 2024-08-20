@@ -1,41 +1,45 @@
 import Head from 'next/head';
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
-import { firebaseApp } from '../firebase'; // Import your firebaseApp configuration
+// import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+// import { firebaseApp } from '../firebase'; // Import your firebaseApp configuration
+import { UserButton, useAuth } from '@clerk/nextjs';
 import styles from '../styles/Home.module.css';
 
 export default function Home() {
-  const [user, setUser] = useState(null);
+  const { userId } = useAuth();
+  // const [user, setUser] = useState(null);
   const router = useRouter();
-  const auth = getAuth(firebaseApp); // Initialize Firebase Auth
+  // const auth = getAuth(firebaseApp); // Initialize Firebase Auth
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+  //     setUser(currentUser);
+  //   });
 
-    return () => unsubscribe(); // Clean up subscription on unmount
-  }, [auth]);
+  //   return () => unsubscribe(); // Clean up subscription on unmount
+  // }, [auth]);
 
   const handleSignup = (path) => {
-    if (user || path === '/') {
-      router.push(path);
-    } else {
-      router.push('/signup');
-    }
+    // if (user || path === '/') {
+    //   router.push(path);
+    // } else {
+    //   router.push('/signup');
+    // }
+    router.push(path);
   }
 
   const handleNavigation = (path) => {
-    if (user || path === '/') {
-      router.push(path);
-    } else {
-      router.push('/signin');
-    }
+    // if (user || path === '/') {
+    //   router.push(path);
+    // } else {
+    //   router.push('/signin');
+    // }
+    router.push(path);
   };
 
   const handleExplore = (type) => {
-    if (user) {
+    if (userId) {
       switch (type) {
         case 'basic':
           router.push('/basic');
@@ -62,15 +66,15 @@ export default function Home() {
     }
   }
 
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      router.push('/signin'); // Redirect to sign-in page after logout
-    } catch (error) {
-      console.error('Error signing out:', error);
-      // Optionally, show an error message
-    }
-  };
+  // const handleLogout = async () => {
+  //   try {
+  //     await signOut(auth);
+  //     router.push('/signin'); // Redirect to sign-in page after logout
+  //   } catch (error) {
+  //     console.error('Error signing out:', error);
+  //     // Optionally, show an error message
+  //   }
+  // };
 
   return (
     <div className={styles.container}>
@@ -96,12 +100,28 @@ export default function Home() {
             <li><button className={styles.navLink} onClick={() => handleNavigation('/contact')}>Contact Us</button></li>
           </ul>
         </nav>
-        <div className={styles.authButtons}>
+        {/* <div className={styles.authButtons}>
           {user ? (
             <>
               <span className={styles.userName}>{user.displayName || user.email}</span>
               <button className={styles.authButton} onClick={handleSubscription}>Subscribe</button>
               <button className={styles.authButton} onClick={handleLogout}>Logout</button>
+            </>
+          ) : (
+            <>
+              <button className={styles.authButton} onClick={() => handleNavigation('/signin')}>Login</button>
+              <button className={styles.authButton} onClick={() => handleSignup('/signup')}>Signup</button>
+            </>
+          )}
+        </div> */}
+
+<div className={styles.authButtons}>
+          {userId ? (
+            <>
+              
+              <button className={styles.authButton} onClick={handleSubscription}>Subscribe</button>
+              
+              <UserButton />
             </>
           ) : (
             <>

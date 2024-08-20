@@ -1,32 +1,34 @@
 import Head from 'next/head';
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
-import { firebaseApp } from '../firebase'; // Import your firebaseApp configuration
+// import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+// import { firebaseApp } from '../firebase'; // Import your firebaseApp configuration
 import styles from '../styles/Home.module.css'; // Import your styles
+import { useAuth, UserButton } from '@clerk/nextjs';
 
 export default function Basic() {
-  const [user, setUser] = useState(null);
+  const { userId } = useAuth();
+  // const [user, setUser] = useState(null);
   const router = useRouter();
-  const auth = getAuth(firebaseApp); // Initialize Firebase Auth
+  // const auth = getAuth(firebaseApp); // Initialize Firebase Auth
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+  //     setUser(currentUser);
+  //   });
 
-    return () => unsubscribe(); // Clean up subscription on unmount
-  }, [auth]);
+  //   return () => unsubscribe(); // Clean up subscription on unmount
+  // }, [auth]);
 
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      router.push('/signin'); // Redirect to sign-in page after logout
-    } catch (error) {
-      console.error('Error signing out:', error);
-      // Optionally, show an error message
-    }
-  };
+  // const handleLogout = async () => {
+  //   try {
+  //     await signOut(auth);
+  //     router.push('/signin'); // Redirect to sign-in page after logout
+  //   } catch (error) {
+  //     console.error('Error signing out:', error);
+  //     // Optionally, show an error message
+  //   }
+  // };
 
   const topics = [
     { name: 'Advanced Topics', description: 'Dive into advanced concepts and techniques in data structures and algorithms.' },
@@ -68,7 +70,7 @@ export default function Basic() {
             <li><button className={styles.navLink} onClick={() => router.push('/contact')}>Contact Us</button></li>
           </ul>
         </nav>
-        <div className={styles.authButtons}>
+        {/* <div className={styles.authButtons}>
           {user ? (
             <>
               <span className={styles.userName}>{user.displayName || user.email}</span>
@@ -78,6 +80,21 @@ export default function Basic() {
             <>
               <button className={styles.authButton} onClick={() => router.push('/signin')}>Login</button>
               <button className={styles.authButton} onClick={() => router.push('/signup')}>Signup</button>
+            </>
+          )}
+        </div> */}
+        <div className={styles.authButtons}>
+          {userId ? (
+            <>
+              
+              
+              
+              <UserButton />
+            </>
+          ) : (
+            <>
+              <button className={styles.authButton} onClick={() => handleNavigation('/signin')}>Login</button>
+              <button className={styles.authButton} onClick={() => handleSignup('/signup')}>Signup</button>
             </>
           )}
         </div>
